@@ -3,6 +3,7 @@ from __future__ import print_function
 
 import unittest
 import pytraj as pt
+from utils import fn
 from pytraj import utils
 import doctest
 from pytraj.externals.six import PY3
@@ -70,10 +71,13 @@ class TestDoc(unittest.TestCase):
             pt.tools,
             testing,
             utils,
-            pt.matrix,
             base_holder,
         ]
         modules.extend(additional_list)
+        assert not get_total_errors(modules)
+
+    def test_doc_matrix(self):
+        modules = [pt.matrix,]
         assert not get_total_errors(modules)
 
     def test_doc_trajectory(self):

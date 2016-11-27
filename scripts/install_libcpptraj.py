@@ -39,15 +39,20 @@ def add_cpptraj_cxx_to_config(fn, cpptraj_cxx=CPPTRAJ_CXX):
         fh.write(''.join(lines))
     subprocess.check_call('mv tmp.h {}'.format(fn), shell=True)
 
+def is_clang(cc):
+    # both cpptraj and pytraj give priority for CXX and CC environments
+    # check them first.
+    out = subprocess.check_output([cc, '--version']).decode()
+    return 'clang' in out
+
 def ensure_gnu():
     # both cpptraj and pytraj give priority for CXX and CC environments
     # check them first.
     cc = os.getenv('CC', '')
     gcc_exe = cc if cc else 'gcc'
-    out = subprocess.check_output([gcc_exe, '--version']).decode()
-    if 'clang' in out:
+
+    if is_clang(gcc_exe):
         print('{} --version'.format(gcc_exe))
-        print(out)
         print('{} here is actually clang compiler. Please export correct PATH for the real g++\n'.format(gcc_exe))
         print('Or export CXX and CC environments')
         print('e.g: ')
@@ -126,7 +131,7 @@ def get_compiler_and_build_flag():
         print('install libcpptraj from current ./cpptraj folder')
     return compiler, build_flag
 
-def install_libcpptraj(compiler, build_flag):
+def install_libcpptraj(compiler, build_flag, n_cpus=4):
     '''
 
     Parameters
@@ -148,21 +153,22 @@ def install_libcpptraj(compiler, build_flag):
 
     cxx_overwrite = ''
     if IS_OSX:
-        if compiler == 'clang' or 'clang' in os.getenv('CXX', ''):
+        if ((compiler == 'clang' or 'clang' in os.getenv('CXX', '')) or
+           (os.getenv('CXX') and is_clang(os.getenv('CXX')))):
             cxx_overwrite = 'CXX="clang++ -stdlib=libstdc++"'
     print('cxx_overwrite flag', cxx_overwrite)
 
     cm = 'bash configure {build_flag} {compiler} {cxx_overwrite}'.format(
             build_flag=build_flag, compiler=compiler, cxx_overwrite=cxx_overwrite)
 
-    print('build command: ', cm)
+    print('configure command: ', cm)
     # do not use subprocess to avoid split cxx_overwrite command
     os.system(cm)
 
     if IS_OSX:
         add_cpptraj_cxx_to_config('config.h', CPPTRAJ_CXX)
 
-    subprocess.check_call('make libcpptraj -j4'.split())
+    subprocess.check_call('make libcpptraj -j{}'.format(n_cpus).split())
     os.chdir(cwd)
 
 def parse_args():
@@ -171,10 +177,12 @@ def parse_args():
     parser.add_argument('-openmp', action='store_true', help='use openmp')
     parser.add_argument('-amberlib', action='store_true', help='use use amberlib if $AMBERHOME is set')
     parser.add_argument('-debug', action='store_true', help='debug')
+    parser.add_argument('-j', default=4, help='n_cpus')
     parser.add_argument('install_type', default='', nargs='?', help='install_type in amber')
     args = parser.parse_args()
     return args
 
 if __name__ == '__main__':
+    args = parse_args()
     compiler, build_flag = get_compiler_and_build_flag()
-    install_libcpptraj(compiler, build_flag)
+    install_libcpptraj(compiler, build_flag, args.j)
