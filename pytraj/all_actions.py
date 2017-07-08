@@ -2926,3 +2926,53 @@ def ti(fn, options=''):
     command = 'TI_set ' + options
     act(command, dslist=c_dslist)
     return c_dslist
+
+
+def lifetime(data,
+        window=-1,
+        cut=0.5, rawcurve=False, options='', dtype='ndarray'):
+    """lifetime
+
+    Parameters
+    ----------
+    data : 1D-array or 2D array-like
+    window: int, default -1
+    cut : float, default 0.5
+    options : str, optional
+        more cpptraj's options. Check cpptraj's manual.
+    """
+    data = np.asarray(data)
+    if data.ndim == 1:
+        data_ = [
+            data,
+        ]
+    else:
+        data_ = data
+
+    outname_ = 'name lifetime_'
+    cut_ = 'cut ' + str(cut)
+    rawcurve_ = 'rawcurve' if rawcurve else ''
+    # do not sorting dataset's names. We can accessing by indexing them.
+    nosort_ = 'nosort'
+    window_ = "window " + str(window)
+
+    namelist = []
+    cdslist = CpptrajDatasetList()
+    for idx, arr in enumerate(data_):
+        # create datasetname so we can reference them
+        name = 'data_' + str(idx)
+        if 'int' in arr.dtype.name:
+            cdslist.add("integer", name)
+        else:
+            cdslist.add("double", name)
+        cdslist[-1].data = np.asarray(arr)
+        namelist.append(name)
+
+    act = c_analysis.Analysis_Lifetime()
+    cm_ = ' '.join(namelist)
+    command = " ".join((window_, cm_, outname_, cut_, rawcurve_, nosort_, options))
+    act(command, dslist=cdslist)
+
+    for name in namelist:
+        cdslist.remove_set(cdslist[name])
+    return get_data_from_dtype(cdslist, dtype=dtype)
