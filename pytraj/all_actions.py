@@ -1390,7 +1390,7 @@ def atomicfluct(traj=None,
            [ 16.        ,   0.5627449 ],
            [ 40.        ,   0.53717119]])
     '''
-    command = mask
+    command = ' '.join((mask, options))
     c_dslist, _ = do_action(traj, command, c_action.Action_AtomicFluct)
     return get_data_from_dtype(c_dslist, dtype=dtype)
 
@@ -1925,6 +1925,29 @@ def velocityautocorr(
     act.post_process()
 
     return get_data_from_dtype(c_dslist, dtype=dtype)
+
+
+def set_velocity(traj, temperature=298, ig=10, options=''):
+    """
+
+    Notes
+    -----
+    Added in v2.0.1
+    """
+    command = "tempi {} ig {} {}".format(temperature, ig, options)
+
+    top = traj.top
+
+    act = c_action.Action_SetVelocity()
+    act.read_input(command, top=top)
+    act.setup(top)
+
+    if traj.velocities is None:
+        traj.velocities = np.empty(traj.xyz.shape)
+    for index, frame in enumerate(traj):
+        new_frame = act.compute(frame, get_new_frame=True)
+        traj.velocities[index] = new_frame.velocity
+    return traj
 
 
 def crank(data0, data1, mode='distance', dtype='ndarray'):

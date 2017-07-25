@@ -1,14 +1,26 @@
 #!/usr/bin/env python
 from __future__ import print_function
+import os
 import unittest
 import pytraj as pt
 from utils import fn
 from pytraj.utils import aa_eq
+from pytraj.testing import cpptraj_test_dir
 import pytest
 
 
 class TestVelocity(unittest.TestCase):
-    def test_velocity(self):
+    def test_set_velocity(self):
+        traj = pt.load(
+            os.path.join(cpptraj_test_dir, 'tz2.rst7'), fn('tz2.parm7'))
+        saved_rst7 = pt.iterload(
+            os.path.join(cpptraj_test_dir, 'Test_SetVelocity',
+                         'tz2.vel.rst7.save'), fn('tz2.parm7'))
+
+        pt.set_velocity(traj, temperature=298, ig=10)
+        aa_eq(traj[0].velocity, saved_rst7[0].velocity)
+
+    def test_get_velocity(self):
         traj = pt.iterload(
             fn('issue807/trunc.nc'), fn("issue807/system.prmtop"))
 
@@ -76,9 +88,6 @@ class TestVelocity(unittest.TestCase):
         # need to raise if no `velocity_arr` is given
         traj_on_mem = traj[:]
 
-        with pytest.raises(ValueError):
-            pt.all_actions.velocityautocorr(
-                traj_on_mem, tstep=2, norm=True, direct=True, usevelocity=True)
         # try on memory Trajectory, usevelocity = True
         traj_on_disk = traj
         velocity_arr = pt.get_velocity(traj_on_disk)
