@@ -132,6 +132,7 @@ __all__ = [
     'rotdif',
     'ti',
     'lipidscd',
+    'lifetime',
 ]
 
 
@@ -3059,51 +3060,31 @@ def ti(fn, options=''):
     return c_dslist
 
 
-def lifetime(data,
-        window=-1,
-        cut=0.5, rawcurve=False, options='', dtype='ndarray'):
-    """lifetime
+def lifetime(data, options='', dtype='dict'):
+    """EXPERIMENTAL
 
     Parameters
     ----------
-    data : 1D-array or 2D array-like
-    window: int, default -1
-    cut : float, default 0.5
-    options : str, optional
-        more cpptraj's options. Check cpptraj's manual.
+    data : 1D-array
+    options : str
+        cpptraj's options. Check cpptraj's manual (`pytraj.info("lifetime"))
     """
-    data = np.asarray(data)
-    if data.ndim == 1:
-        data_ = [
-            data,
-        ]
-    else:
-        data_ = data
-
-    outname_ = 'name lifetime_'
-    cut_ = 'cut ' + str(cut)
-    rawcurve_ = 'rawcurve' if rawcurve else ''
-    # do not sorting dataset's names. We can accessing by indexing them.
-    nosort_ = 'nosort'
-    window_ = "window " + str(window)
-
-    namelist = []
+    print('input data', data)
     cdslist = CpptrajDatasetList()
-    for idx, arr in enumerate(data_):
-        # create datasetname so we can reference them
-        name = 'data_' + str(idx)
-        if 'int' in arr.dtype.name:
-            cdslist.add("integer", name)
-        else:
-            cdslist.add("double", name)
-        cdslist[-1].data = np.asarray(arr)
-        namelist.append(name)
+
+    # create datasetname so we can reference them
+    name = 'input'
+    if 'int' in data.dtype.name:
+        cdslist.add("integer", name)
+    else:
+        cdslist.add("double", name)
+    cdslist[-1].data = np.asarray(data)
 
     act = c_analysis.Analysis_Lifetime()
-    cm_ = ' '.join(namelist)
-    command = " ".join((window_, cm_, outname_, cut_, rawcurve_, nosort_, options))
-    act(command, dslist=cdslist)
+    out_dname = 'name lifetime_out'
+    cmd = ' '.join((name, options, out_dname))
+    print(cmd)
+    act(cmd, dslist=cdslist)
 
-    for name in namelist:
-        cdslist.remove_set(cdslist[name])
+    # cdslist.remove_set(cdslist[name])
     return get_data_from_dtype(cdslist, dtype=dtype)
