@@ -49,6 +49,32 @@ from .analysis import (
     energy_analysis, )
 
 __all__ = [
+    'align',
+    'angle',
+    'atomicfluct',
+    'bfactors',
+    'center_of_geometry',
+    'center_of_mass',
+    'check_chirality',
+    'crank',
+    'diffusion',
+    'dihedral',
+    'distance',
+    'distance_to_point',
+    'distance_to_reference',
+    'fiximagedbonds',
+    'mindist',
+    'molsurf',
+    'multidihedral',
+    'pairdist',
+    'pairwise_distance',
+    'pca',
+    'radgyr',
+    'rdf',
+    'rotate_dihedral',
+    'set_velocity',
+    'surf',
+    'watershell',
     'analyze_modes',
     'translate',
     'rotate',
@@ -89,6 +115,7 @@ __all__ = [
     'rmsd_perres',
     'rmsd_nofit',
     'rmsd',
+    'rmsf',
     'symmrmsd',
     'distance_rmsd',
     'volmap',
@@ -102,7 +129,9 @@ __all__ = [
     'dssp_analysis',
     'hbond_analysis',
     'energy_analysis',
+    'rotdif',
     'ti',
+    'lipidscd',
 ]
 
 
@@ -1365,12 +1394,12 @@ def multidihedral(traj=None,
 
 
 @super_dispatch()
-def atomicfluct(traj=None,
-                mask="",
-                top=None,
-                dtype='ndarray',
-                frame_indices=None,
-                options=''):
+def rmsf(traj=None,
+        mask="",
+        top=None,
+        dtype='ndarray',
+        frame_indices=None,
+        options=''):
     '''compute atomicfluct (RMSF)
 
     Parameters
@@ -1384,7 +1413,7 @@ def atomicfluct(traj=None,
     --------
     >>> import pytraj as pt
     >>> traj = pt.datafiles.load_tz2_ortho()
-    >>> data = pt.atomicfluct(traj, '@CA')
+    >>> data = pt.rmsf(traj, '@CA') # or pt.atomicfluct
     >>> data[:3]
     array([[  5.        ,   0.61822273],
            [ 16.        ,   0.5627449 ],
@@ -1393,6 +1422,8 @@ def atomicfluct(traj=None,
     command = ' '.join((mask, options))
     c_dslist, _ = do_action(traj, command, c_action.Action_AtomicFluct)
     return get_data_from_dtype(c_dslist, dtype=dtype)
+
+atomicfluct = rmsf
 
 
 def bfactors(traj=None,
@@ -2943,7 +2974,7 @@ def check_chirality(traj, mask='', dtype='dict'):
 
     Returns
     -------
-    out : depent on dtype, default 'dict'
+    out : depend on dtype, default 'dict'
     '''
     command = mask
     c_dslist, _ = do_action(traj, command, c_action.Action_CheckChirality)
@@ -2960,6 +2991,23 @@ def fiximagedbonds(traj, mask=''):
     '''
     command = mask
     c_dslist, _ = do_action(traj, command, c_action.Action_FixImagedBonds)
+
+
+def lipidscd(traj, mask='', options='', dtype='dict'):
+    '''
+    
+    Parameters
+    ----------
+    traj : Trajectory-like
+    mask : str, default '' (all)
+
+    Returns
+    -------
+    out : depend on dtype, default 'dict'
+    '''
+    command = ' '.join((mask, options))
+    c_dslist, _ = do_action(traj, command, c_action.Action_LipidOrder)
+    return get_data_from_dtype(c_dslist, dtype=dtype)
 
 
 def analyze_modes(mode_type,

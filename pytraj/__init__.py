@@ -137,6 +137,7 @@ from .all_actions import pairwise_distance
 from .all_actions import pairwise_rmsd
 from .all_actions import radgyr
 from .all_actions import rdf
+from .all_actions import rotdif
 from .all_actions import rmsd_nofit
 from .all_actions import rotation_matrix
 from .all_actions import surf
@@ -186,6 +187,8 @@ from .all_actions import velocityautocorr
 from .all_actions import wavelet
 from .all_actions import xcorr
 from .all_actions import lifetime
+from .all_actions import ti
+from .all_actions import lipidscd
 
 from .analysis.matrix import dist as distance_matrix
 from .analysis import matrix
