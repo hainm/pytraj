@@ -3050,12 +3050,16 @@ def analyze_modes(mode_type,
                   eigenvalues,
                   scalar_type='mwcovar',
                   options='',
-                  dtype='dict'):
+                  dtype='dict',
+                  top=None):
     act = c_analysis.Analysis_Modes()
     c_dslist = CpptrajDatasetList()
     my_modes = 'my_modes'
     modes = c_dslist.add('modes', name=my_modes)
     modes.scalar_type = scalar_type
+    if top is not None:
+        top_ds = c_dslist.add("topology", name='my_topology')
+        top_ds.data = top
     # cpptraj will use natoms = modes.NavgCrd()
     modes._allocate_avgcoords(eigenvectors.shape[1])
     modes._set_modes(False, eigenvectors.shape[0], eigenvectors.shape[1],
