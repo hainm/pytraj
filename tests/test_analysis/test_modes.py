@@ -3,10 +3,14 @@ from pytraj.testing import aa_eq, cpptraj_test_dir
 from utils import fn
 import pytest
 import numpy as np
+import os
 
 
 def aa_eq_abs(arr0, arr1):
     aa_eq(np.abs(arr0), np.abs(arr1))
+
+
+tz2_evecs = cpptraj_test_dir + '/Test_Analyze_Modes/tz2.evecs.dat'
 
 
 def test_analyze_modes():
@@ -65,10 +69,14 @@ def test_analyze_modes():
         aa_eq_abs(p_rms, c_rms)
 
 
-def test_mode_disp():
-    tz2_evecs = cpptraj_test_dir + '/Test_Analyze_Modes/tz2.evecs.dat'
+@pytest.fixture
+def c_modes():
     c_dslist = pt.io.read_data(tz2_evecs)
     c_modes = c_dslist[0]
+    return c_modes
+
+
+def test_mode_disp(c_modes):
     disp_dict = pt.analyze_modes(
         'displ', c_modes.eigenvectors, c_modes.eigenvalues, dtype='dict')
 
@@ -82,3 +90,28 @@ def test_mode_disp():
 
     for key in disp_dict.keys():
         aa_eq_abs(disp_dict[key], c_disp_dict[key])
+
+
+def test_write_trajectory_modes():
+    cpptraj_mode_test_dir = os.path.join(cpptraj_test_dir,
+                                         'Test_Analyze_Modes')
+    cvecs = os.path.join(cpptraj_mode_test_dir, 'evecs.dat')
+    pt._verbose()
+    c_dslist = pt.io.read_data(cvecs)
+    c_modes = c_dslist[0]
+    top = pt.load_topology(
+        os.path.join(cpptraj_mode_test_dir, 'INPpYLYP.FF14SB.parm7'))
+    top.strip('@H=')
+    out_fn = 'tmp_junk_modes.crd'
+    pt.analyze_modes(
+        'trajout {}'.format(out_fn),
+        c_modes.eigenvectors,
+        c_modes.eigenvalues,
+        scalar_type='covar',
+        options='pcmin -33 pcmax 46 tmode 2',
+        top=top)
+    traj = pt.load(out_fn, top=top)
+    expected_traj_fn = os.path.join(cpptraj_mode_test_dir,
+                                    'modestest.2.crd.save')
+    expected_traj = pt.load(expected_traj_fn, top=top)
+    aa_eq_abs(traj.xyz, expected_traj.xyz)

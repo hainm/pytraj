@@ -3052,6 +3052,9 @@ def analyze_modes(mode_type,
                   options='',
                   dtype='dict',
                   top=None):
+    '''
+    Notes: This is absolutely experimental. Mostly for internal use.
+    '''
     act = c_analysis.Analysis_Modes()
     c_dslist = CpptrajDatasetList()
     my_modes = 'my_modes'
@@ -3064,9 +3067,11 @@ def analyze_modes(mode_type,
     modes._allocate_avgcoords(eigenvectors.shape[1])
     modes._set_modes(False, eigenvectors.shape[0], eigenvectors.shape[1],
                      eigenvalues, eigenvectors.flatten())
-    command = ' '.join((mode_type, 'name {}'.format(my_modes), options))
+    command = ' '.join(('name {}'.format(my_modes), mode_type, options))
     act(command, dslist=c_dslist)
     c_dslist._pop(0)
+    if top is not None:
+        c_dslist._pop(0)
     return get_data_from_dtype(c_dslist, dtype=dtype)
 
 
