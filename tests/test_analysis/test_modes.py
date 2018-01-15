@@ -95,23 +95,31 @@ def test_mode_disp(c_modes):
 def test_write_trajectory_modes():
     cpptraj_mode_test_dir = os.path.join(cpptraj_test_dir,
                                          'Test_Analyze_Modes')
-    cvecs = os.path.join(cpptraj_mode_test_dir, 'evecs.dat')
+    evecs = os.path.join(cpptraj_mode_test_dir, 'evecs.dat')
     pt._verbose()
-    c_dslist = pt.io.read_data(cvecs)
+    c_dslist = pt.io.read_data(evecs)
     c_modes = c_dslist[0]
-    top = pt.load_topology(
-        os.path.join(cpptraj_mode_test_dir, 'INPpYLYP.FF14SB.parm7'))
-    top.strip('@H=')
+    parm_fn = os.path.join(cpptraj_mode_test_dir, 'INPpYLYP.FF14SB.parm7')
+    top = pt.load_topology(parm_fn)
+    new_top = top['!@H=']
     out_fn = 'tmp_junk_modes.crd'
     pt.analyze_modes(
         'trajout {}'.format(out_fn),
         c_modes.eigenvectors,
         c_modes.eigenvalues,
         scalar_type='covar',
-        options='pcmin -33 pcmax 46 tmode 2',
+        options='pcmin -33 pcmax 46 tmode 2 trajoutmask !@H=',
         top=top)
-    traj = pt.load(out_fn, top=top)
-    expected_traj_fn = os.path.join(cpptraj_mode_test_dir,
-                                    'modestest.2.crd.save')
-    expected_traj = pt.load(expected_traj_fn, top=top)
+    traj = pt.load(out_fn, top=new_top)
+
+    state = pt.load_cpptraj_state("""
+    parm {parm}
+    readdata {evecs} name evecs
+    modes name evecs trajout modestest.2.crd pcmin -33 pcmax 46 tmode 2 trajoutmask !@H=
+    """.format(parm=parm_fn, evecs=evecs))
+    state.run()
+    # expected_traj_fn = os.path.join(cpptraj_mode_test_dir,
+    #                                 'modestest.2.crd.save')
+    # expected_traj = pt.load(expected_traj_fn, top=top)
+    expected_traj = pt.load('modestest.2.crd', top=new_top)
     aa_eq_abs(traj.xyz, expected_traj.xyz)
