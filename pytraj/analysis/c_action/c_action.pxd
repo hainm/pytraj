@@ -50,7 +50,7 @@ cdef extern from "Action.h":
         ERR "Action::ERR"
         USEORIGINALFRAME "Action::USEORIGINALFRAME"
         SUPPRESSCOORDOUTPUT "Action::SUPPRESSCOORDOUTPUT"
-    cdef cppclass _Action "Action" nogil:
+    cdef cppclass _Action "Action":
         RetType Init(_ArgList&, _ActionInit&, int)
         RetType Setup(_ActionSetup&)
         RetType DoAction(int, _ActionFrame&)
@@ -70,7 +70,7 @@ cdef class Action:
 
 
 cdef extern from "Action_Align.h":
-    cdef cppclass _Action_Align "Action_Align" (_Action) nogil:
+    cdef cppclass _Action_Align "Action_Align" (_Action):
         _Action_Align()
         _DispatchObject * Alloc()
         void Help()
@@ -81,7 +81,7 @@ cdef class Action_Align(Action):
 
 
 cdef extern from "Action_Angle.h":
-    cdef cppclass _Action_Angle "Action_Angle" (_Action) nogil:
+    cdef cppclass _Action_Angle "Action_Angle" (_Action):
         _Action_Angle()
         _DispatchObject * Alloc()
         void Help()
@@ -92,7 +92,7 @@ cdef class Action_Angle(Action):
 
 
 cdef extern from "Action_AreaPerMol.h":
-    cdef cppclass _Action_AreaPerMol "Action_AreaPerMol" (_Action) nogil:
+    cdef cppclass _Action_AreaPerMol "Action_AreaPerMol" (_Action):
         _Action_AreaPerMol()
         _DispatchObject * Alloc()
         void Help()
@@ -103,7 +103,7 @@ cdef class Action_AreaPerMol(Action):
 
 
 cdef extern from "Action_AtomMap.h":
-    cdef cppclass _Action_AtomMap "Action_AtomMap" (_Action) nogil:
+    cdef cppclass _Action_AtomMap "Action_AtomMap" (_Action):
         _Action_AtomMap()
         _DispatchObject * Alloc()
         void Help()
@@ -114,7 +114,7 @@ cdef class Action_AtomMap(Action):
 
 
 cdef extern from "Action_AtomicCorr.h":
-    cdef cppclass _Action_AtomicCorr "Action_AtomicCorr" (_Action) nogil:
+    cdef cppclass _Action_AtomicCorr "Action_AtomicCorr" (_Action):
         _Action_AtomicCorr()
         _DispatchObject * Alloc()
         void Help()
@@ -125,7 +125,7 @@ cdef class Action_AtomicCorr(Action):
 
 
 cdef extern from "Action_AtomicFluct.h":
-    cdef cppclass _Action_AtomicFluct "Action_AtomicFluct" (_Action) nogil:
+    cdef cppclass _Action_AtomicFluct "Action_AtomicFluct" (_Action):
         _Action_AtomicFluct()
         _DispatchObject * Alloc()
         void Help()
@@ -136,7 +136,7 @@ cdef class Action_AtomicFluct(Action):
 
 
 cdef extern from "Action_AutoImage.h":
-    cdef cppclass _Action_AutoImage "Action_AutoImage" (_Action) nogil:
+    cdef cppclass _Action_AutoImage "Action_AutoImage" (_Action):
         _Action_AutoImage()
         _DispatchObject * Alloc()
         void Help()
@@ -147,7 +147,7 @@ cdef class Action_AutoImage(Action):
 
 
 cdef extern from "Action_Average.h":
-    cdef cppclass _Action_Average "Action_Average" (_Action) nogil:
+    cdef cppclass _Action_Average "Action_Average" (_Action):
         _Action_Average()
         _DispatchObject * Alloc()
         void Help()
@@ -158,7 +158,7 @@ cdef class Action_Average(Action):
 
 
 cdef extern from "Action_Bounds.h":
-    cdef cppclass _Action_Bounds "Action_Bounds" (_Action) nogil:
+    cdef cppclass _Action_Bounds "Action_Bounds" (_Action):
         _Action_Bounds()
         _DispatchObject * Alloc()
         void Help()
@@ -169,7 +169,7 @@ cdef class Action_Bounds(Action):
 
 
 cdef extern from "Action_Box.h":
-    cdef cppclass _Action_Box "Action_Box" (_Action) nogil:
+    cdef cppclass _Action_Box "Action_Box" (_Action):
         _Action_Box()
         _DispatchObject * Alloc()
         void Help()
@@ -180,7 +180,7 @@ cdef class Action_Box(Action):
 
 
 cdef extern from "Action_Center.h":
-    cdef cppclass _Action_Center "Action_Center" (_Action) nogil:
+    cdef cppclass _Action_Center "Action_Center" (_Action):
         _Action_Center()
         _DispatchObject * Alloc()
         void Help()
@@ -191,7 +191,7 @@ cdef class Action_Center(Action):
 
 
 cdef extern from "Action_Channel.h":
-    cdef cppclass _Action_Channel "Action_Channel" (_Action) nogil:
+    cdef cppclass _Action_Channel "Action_Channel" (_Action):
         _Action_Channel()
         _DispatchObject * Alloc()
         void Help()
@@ -202,7 +202,7 @@ cdef class Action_Channel(Action):
 
 
 cdef extern from "Action_CheckChirality.h":
-    cdef cppclass _Action_CheckChirality "Action_CheckChirality" (_Action) nogil:
+    cdef cppclass _Action_CheckChirality "Action_CheckChirality" (_Action):
         _Action_CheckChirality()
         _DispatchObject * Alloc()
         void Help()
@@ -213,7 +213,7 @@ cdef class Action_CheckChirality(Action):
 
 
 cdef extern from "Action_CheckStructure.h":
-    cdef cppclass _Action_CheckStructure "Action_CheckStructure" (_Action) nogil:
+    cdef cppclass _Action_CheckStructure "Action_CheckStructure" (_Action):
         _Action_CheckStructure()
         _DispatchObject * Alloc()
         void Help()
@@ -224,7 +224,7 @@ cdef class Action_CheckStructure(Action):
 
 
 cdef extern from "Action_Closest.h":
-    cdef cppclass _Action_Closest "Action_Closest" (_Action) nogil:
+    cdef cppclass _Action_Closest "Action_Closest" (_Action):
         _Action_Closest()
         _DispatchObject * Alloc()
         void Help()
@@ -235,7 +235,7 @@ cdef class Action_Closest(Action):
 
 
 cdef extern from "Action_ClusterDihedral.h":
-    cdef cppclass _Action_ClusterDihedral "Action_ClusterDihedral" (_Action) nogil:
+    cdef cppclass _Action_ClusterDihedral "Action_ClusterDihedral" (_Action):
         _Action_ClusterDihedral()
         _DispatchObject * Alloc()
         void Help()
@@ -246,7 +246,7 @@ cdef class Action_ClusterDihedral(Action):
 
 
 cdef extern from "Action_Contacts.h":
-    cdef cppclass _Action_Contacts "Action_Contacts" (_Action) nogil:
+    cdef cppclass _Action_Contacts "Action_Contacts" (_Action):
         _Action_Contacts()
         _DispatchObject * Alloc()
         void Help()
@@ -257,7 +257,7 @@ cdef class Action_Contacts(Action):
 
 
 cdef extern from "Action_CreateCrd.h":
-    cdef cppclass _Action_CreateCrd "Action_CreateCrd" (_Action) nogil:
+    cdef cppclass _Action_CreateCrd "Action_CreateCrd" (_Action):
         _Action_CreateCrd()
         _DispatchObject * Alloc()
         void Help()
@@ -268,7 +268,7 @@ cdef class Action_CreateCrd(Action):
 
 
 cdef extern from "Action_DNAionTracker.h":
-    cdef cppclass _Action_DNAionTracker "Action_DNAionTracker" (_Action) nogil:
+    cdef cppclass _Action_DNAionTracker "Action_DNAionTracker" (_Action):
         _Action_DNAionTracker()
         _DispatchObject * Alloc()
         void Help()
@@ -279,7 +279,7 @@ cdef class Action_DNAionTracker(Action):
 
 
 cdef extern from "Action_DSSP.h":
-    cdef cppclass _Action_DSSP "Action_DSSP" (_Action) nogil:
+    cdef cppclass _Action_DSSP "Action_DSSP" (_Action):
         _Action_DSSP()
         _DispatchObject * Alloc()
         void Help()
@@ -290,7 +290,7 @@ cdef class Action_DSSP(Action):
 
 
 cdef extern from "Action_Density.h":
-    cdef cppclass _Action_Density "Action_Density" (_Action) nogil:
+    cdef cppclass _Action_Density "Action_Density" (_Action):
         _Action_Density()
         _DispatchObject * Alloc()
         void Help()
@@ -301,7 +301,7 @@ cdef class Action_Density(Action):
 
 
 cdef extern from "Action_Diffusion.h":
-    cdef cppclass _Action_Diffusion "Action_Diffusion" (_Action) nogil:
+    cdef cppclass _Action_Diffusion "Action_Diffusion" (_Action):
         _Action_Diffusion()
         _DispatchObject * Alloc()
         void Help()
@@ -312,7 +312,7 @@ cdef class Action_Diffusion(Action):
 
 
 cdef extern from "Action_Dihedral.h":
-    cdef cppclass _Action_Dihedral "Action_Dihedral" (_Action) nogil:
+    cdef cppclass _Action_Dihedral "Action_Dihedral" (_Action):
         _Action_Dihedral()
         _DispatchObject * Alloc()
         void Help()
@@ -323,7 +323,7 @@ cdef class Action_Dihedral(Action):
 
 
 cdef extern from "Action_Dipole.h":
-    cdef cppclass _Action_Dipole "Action_Dipole" (_Action) nogil:
+    cdef cppclass _Action_Dipole "Action_Dipole" (_Action):
         _Action_Dipole()
         _DispatchObject * Alloc()
         void Help()
@@ -334,7 +334,7 @@ cdef class Action_Dipole(Action):
 
 
 cdef extern from "Action_DistRmsd.h":
-    cdef cppclass _Action_DistRmsd "Action_DistRmsd" (_Action) nogil:
+    cdef cppclass _Action_DistRmsd "Action_DistRmsd" (_Action):
         _Action_DistRmsd()
         _DispatchObject * Alloc()
         void Help()
@@ -345,7 +345,7 @@ cdef class Action_DistRmsd(Action):
 
 
 cdef extern from "Action_Distance.h":
-    cdef cppclass _Action_Distance "Action_Distance" (_Action) nogil:
+    cdef cppclass _Action_Distance "Action_Distance" (_Action):
         _Action_Distance()
         _DispatchObject * Alloc()
         void Help()
@@ -356,7 +356,7 @@ cdef class Action_Distance(Action):
 
 
 cdef extern from "Action_Energy.h":
-    cdef cppclass _Action_Energy "Action_Energy" (_Action) nogil:
+    cdef cppclass _Action_Energy "Action_Energy" (_Action):
         _Action_Energy()
         _DispatchObject * Alloc()
         void Help()
@@ -367,7 +367,7 @@ cdef class Action_Energy(Action):
 
 
 cdef extern from "Action_Esander.h":
-    cdef cppclass _Action_Esander "Action_Esander" (_Action) nogil:
+    cdef cppclass _Action_Esander "Action_Esander" (_Action):
         _Action_Esander()
         _DispatchObject * Alloc()
         void Help()
@@ -378,7 +378,7 @@ cdef class Action_Esander(Action):
 
 
 cdef extern from "Action_FilterByData.h":
-    cdef cppclass _Action_FilterByData "Action_FilterByData" (_Action) nogil:
+    cdef cppclass _Action_FilterByData "Action_FilterByData" (_Action):
         _Action_FilterByData()
         _DispatchObject * Alloc()
         void Help()
@@ -389,7 +389,7 @@ cdef class Action_FilterByData(Action):
 
 
 cdef extern from "Action_FixAtomOrder.h":
-    cdef cppclass _Action_FixAtomOrder "Action_FixAtomOrder" (_Action) nogil:
+    cdef cppclass _Action_FixAtomOrder "Action_FixAtomOrder" (_Action):
         _Action_FixAtomOrder()
         _DispatchObject * Alloc()
         void Help()
@@ -400,7 +400,7 @@ cdef class Action_FixAtomOrder(Action):
 
 
 cdef extern from "Action_FixImagedBonds.h":
-    cdef cppclass _Action_FixImagedBonds "Action_FixImagedBonds" (_Action) nogil:
+    cdef cppclass _Action_FixImagedBonds "Action_FixImagedBonds" (_Action):
         _Action_FixImagedBonds()
         _DispatchObject * Alloc()
         void Help()
@@ -411,7 +411,7 @@ cdef class Action_FixImagedBonds(Action):
 
 
 cdef extern from "Action_GIST.h":
-    cdef cppclass _Action_GIST "Action_GIST" (_Action) nogil:
+    cdef cppclass _Action_GIST "Action_GIST" (_Action):
         _Action_GIST()
         _DispatchObject * Alloc()
         void Help()
@@ -422,7 +422,7 @@ cdef class Action_GIST(Action):
 
 
 cdef extern from "Action_Grid.h":
-    cdef cppclass _Action_Grid "Action_Grid" (_Action) nogil:
+    cdef cppclass _Action_Grid "Action_Grid" (_Action):
         _Action_Grid()
         _DispatchObject * Alloc()
         void Help()
@@ -433,7 +433,7 @@ cdef class Action_Grid(Action):
 
 
 cdef extern from "Action_GridFreeEnergy.h":
-    cdef cppclass _Action_GridFreeEnergy "Action_GridFreeEnergy" (_Action) nogil:
+    cdef cppclass _Action_GridFreeEnergy "Action_GridFreeEnergy" (_Action):
         _Action_GridFreeEnergy()
         _DispatchObject * Alloc()
         void Help()
@@ -444,7 +444,7 @@ cdef class Action_GridFreeEnergy(Action):
 
 
 cdef extern from "Action_HydrogenBond.h":
-    cdef cppclass _Action_HydrogenBond "Action_HydrogenBond" (_Action) nogil:
+    cdef cppclass _Action_HydrogenBond "Action_HydrogenBond" (_Action):
         _Action_HydrogenBond()
         _DispatchObject * Alloc()
         void Help()
@@ -455,7 +455,7 @@ cdef class Action_HydrogenBond(Action):
 
 
 cdef extern from "Action_Image.h":
-    cdef cppclass _Action_Image "Action_Image" (_Action) nogil:
+    cdef cppclass _Action_Image "Action_Image" (_Action):
         _Action_Image()
         _DispatchObject * Alloc()
         void Help()
@@ -466,7 +466,7 @@ cdef class Action_Image(Action):
 
 
 cdef extern from "Action_Jcoupling.h":
-    cdef cppclass _Action_Jcoupling "Action_Jcoupling" (_Action) nogil:
+    cdef cppclass _Action_Jcoupling "Action_Jcoupling" (_Action):
         _Action_Jcoupling()
         _DispatchObject * Alloc()
         void Help()
@@ -477,7 +477,7 @@ cdef class Action_Jcoupling(Action):
 
 
 cdef extern from "Action_LESsplit.h":
-    cdef cppclass _Action_LESsplit "Action_LESsplit" (_Action) nogil:
+    cdef cppclass _Action_LESsplit "Action_LESsplit" (_Action):
         _Action_LESsplit()
         _DispatchObject * Alloc()
         void Help()
@@ -488,7 +488,7 @@ cdef class Action_LESsplit(Action):
 
 
 cdef extern from "Action_LIE.h":
-    cdef cppclass _Action_LIE "Action_LIE" (_Action) nogil:
+    cdef cppclass _Action_LIE "Action_LIE" (_Action):
         _Action_LIE()
         _DispatchObject * Alloc()
         void Help()
@@ -499,7 +499,7 @@ cdef class Action_LIE(Action):
 
 
 cdef extern from "Action_LipidOrder.h":
-    cdef cppclass _Action_LipidOrder "Action_LipidOrder" (_Action) nogil:
+    cdef cppclass _Action_LipidOrder "Action_LipidOrder" (_Action):
         _Action_LipidOrder()
         _DispatchObject * Alloc()
         void Help()
@@ -510,7 +510,7 @@ cdef class Action_LipidOrder(Action):
 
 
 cdef extern from "Action_MakeStructure.h":
-    cdef cppclass _Action_MakeStructure "Action_MakeStructure" (_Action) nogil:
+    cdef cppclass _Action_MakeStructure "Action_MakeStructure" (_Action):
         _Action_MakeStructure()
         _DispatchObject * Alloc()
         void Help()
@@ -521,7 +521,7 @@ cdef class Action_MakeStructure(Action):
 
 
 cdef extern from "Action_Mask.h":
-    cdef cppclass _Action_Mask "Action_Mask" (_Action) nogil:
+    cdef cppclass _Action_Mask "Action_Mask" (_Action):
         _Action_Mask()
         _DispatchObject * Alloc()
         void Help()
@@ -532,7 +532,7 @@ cdef class Action_Mask(Action):
 
 
 cdef extern from "Action_Matrix.h":
-    cdef cppclass _Action_Matrix "Action_Matrix" (_Action) nogil:
+    cdef cppclass _Action_Matrix "Action_Matrix" (_Action):
         _Action_Matrix()
         _DispatchObject * Alloc()
         void Help()
@@ -543,7 +543,7 @@ cdef class Action_Matrix(Action):
 
 
 cdef extern from "Action_MinImage.h":
-    cdef cppclass _Action_MinImage "Action_MinImage" (_Action) nogil:
+    cdef cppclass _Action_MinImage "Action_MinImage" (_Action):
         _Action_MinImage()
         _DispatchObject * Alloc()
         void Help()
@@ -554,7 +554,7 @@ cdef class Action_MinImage(Action):
 
 
 cdef extern from "Action_Molsurf.h":
-    cdef cppclass _Action_Molsurf "Action_Molsurf" (_Action) nogil:
+    cdef cppclass _Action_Molsurf "Action_Molsurf" (_Action):
         _Action_Molsurf()
         _DispatchObject * Alloc()
         void Help()
@@ -565,7 +565,7 @@ cdef class Action_Molsurf(Action):
 
 
 cdef extern from "Action_MultiDihedral.h":
-    cdef cppclass _Action_MultiDihedral "Action_MultiDihedral" (_Action) nogil:
+    cdef cppclass _Action_MultiDihedral "Action_MultiDihedral" (_Action):
         _Action_MultiDihedral()
         _DispatchObject * Alloc()
         void Help()
@@ -576,7 +576,7 @@ cdef class Action_MultiDihedral(Action):
 
 
 cdef extern from "Action_MultiVector.h":
-    cdef cppclass _Action_MultiVector "Action_MultiVector" (_Action) nogil:
+    cdef cppclass _Action_MultiVector "Action_MultiVector" (_Action):
         _Action_MultiVector()
         _DispatchObject * Alloc()
         void Help()
@@ -587,7 +587,7 @@ cdef class Action_MultiVector(Action):
 
 
 cdef extern from "Action_NAstruct.h":
-    cdef cppclass _Action_NAstruct "Action_NAstruct" (_Action) nogil:
+    cdef cppclass _Action_NAstruct "Action_NAstruct" (_Action):
         _Action_NAstruct()
         _DispatchObject * Alloc()
         void Help()
@@ -598,7 +598,7 @@ cdef class Action_NAstruct(Action):
 
 
 cdef extern from "Action_NMRrst.h":
-    cdef cppclass _Action_NMRrst "Action_NMRrst" (_Action) nogil:
+    cdef cppclass _Action_NMRrst "Action_NMRrst" (_Action):
         _Action_NMRrst()
         _DispatchObject * Alloc()
         void Help()
@@ -609,7 +609,7 @@ cdef class Action_NMRrst(Action):
 
 
 cdef extern from "Action_NativeContacts.h":
-    cdef cppclass _Action_NativeContacts "Action_NativeContacts" (_Action) nogil:
+    cdef cppclass _Action_NativeContacts "Action_NativeContacts" (_Action):
         _Action_NativeContacts()
         _DispatchObject * Alloc()
         void Help()
@@ -620,7 +620,7 @@ cdef class Action_NativeContacts(Action):
 
 
 cdef extern from "Action_OrderParameter.h":
-    cdef cppclass _Action_OrderParameter "Action_OrderParameter" (_Action) nogil:
+    cdef cppclass _Action_OrderParameter "Action_OrderParameter" (_Action):
         _Action_OrderParameter()
         _DispatchObject * Alloc()
         void Help()
@@ -631,7 +631,7 @@ cdef class Action_OrderParameter(Action):
 
 
 cdef extern from "Action_Outtraj.h":
-    cdef cppclass _Action_Outtraj "Action_Outtraj" (_Action) nogil:
+    cdef cppclass _Action_Outtraj "Action_Outtraj" (_Action):
         _Action_Outtraj()
         _DispatchObject * Alloc()
         void Help()
@@ -642,7 +642,7 @@ cdef class Action_Outtraj(Action):
 
 
 cdef extern from "Action_PairDist.h":
-    cdef cppclass _Action_PairDist "Action_PairDist" (_Action) nogil:
+    cdef cppclass _Action_PairDist "Action_PairDist" (_Action):
         _Action_PairDist()
         _DispatchObject * Alloc()
         void Help()
@@ -653,7 +653,7 @@ cdef class Action_PairDist(Action):
 
 
 cdef extern from "Action_Pairwise.h":
-    cdef cppclass _Action_Pairwise "Action_Pairwise" (_Action) nogil:
+    cdef cppclass _Action_Pairwise "Action_Pairwise" (_Action):
         _Action_Pairwise()
         _DispatchObject * Alloc()
         void Help()
@@ -664,7 +664,7 @@ cdef class Action_Pairwise(Action):
 
 
 cdef extern from "Action_Principal.h":
-    cdef cppclass _Action_Principal "Action_Principal" (_Action) nogil:
+    cdef cppclass _Action_Principal "Action_Principal" (_Action):
         _Action_Principal()
         _DispatchObject * Alloc()
         void Help()
@@ -675,7 +675,7 @@ cdef class Action_Principal(Action):
 
 
 cdef extern from "Action_Projection.h":
-    cdef cppclass _Action_Projection "Action_Projection" (_Action) nogil:
+    cdef cppclass _Action_Projection "Action_Projection" (_Action):
         _Action_Projection()
         _DispatchObject * Alloc()
         void Help()
@@ -686,7 +686,7 @@ cdef class Action_Projection(Action):
 
 
 cdef extern from "Action_Pucker.h":
-    cdef cppclass _Action_Pucker "Action_Pucker" (_Action) nogil:
+    cdef cppclass _Action_Pucker "Action_Pucker" (_Action):
         _Action_Pucker()
         _DispatchObject * Alloc()
         void Help()
@@ -697,7 +697,7 @@ cdef class Action_Pucker(Action):
 
 
 cdef extern from "Action_Radgyr.h":
-    cdef cppclass _Action_Radgyr "Action_Radgyr" (_Action) nogil:
+    cdef cppclass _Action_Radgyr "Action_Radgyr" (_Action):
         _Action_Radgyr()
         _DispatchObject * Alloc()
         void Help()
@@ -708,7 +708,7 @@ cdef class Action_Radgyr(Action):
 
 
 cdef extern from "Action_Radial.h":
-    cdef cppclass _Action_Radial "Action_Radial" (_Action) nogil:
+    cdef cppclass _Action_Radial "Action_Radial" (_Action):
         _Action_Radial()
         _DispatchObject * Alloc()
         void Help()
@@ -719,7 +719,7 @@ cdef class Action_Radial(Action):
 
 
 cdef extern from "Action_RandomizeIons.h":
-    cdef cppclass _Action_RandomizeIons "Action_RandomizeIons" (_Action) nogil:
+    cdef cppclass _Action_RandomizeIons "Action_RandomizeIons" (_Action):
         _Action_RandomizeIons()
         _DispatchObject * Alloc()
         void Help()
@@ -730,7 +730,7 @@ cdef class Action_RandomizeIons(Action):
 
 
 cdef extern from "Action_Remap.h":
-    cdef cppclass _Action_Remap "Action_Remap" (_Action) nogil:
+    cdef cppclass _Action_Remap "Action_Remap" (_Action):
         _Action_Remap()
         _DispatchObject * Alloc()
         void Help()
@@ -741,7 +741,7 @@ cdef class Action_Remap(Action):
 
 
 cdef extern from "Action_ReplicateCell.h":
-    cdef cppclass _Action_ReplicateCell "Action_ReplicateCell" (_Action) nogil:
+    cdef cppclass _Action_ReplicateCell "Action_ReplicateCell" (_Action):
         _Action_ReplicateCell()
         _DispatchObject * Alloc()
         void Help()
@@ -752,7 +752,7 @@ cdef class Action_ReplicateCell(Action):
 
 
 cdef extern from "Action_Rmsd.h":
-    cdef cppclass _Action_Rmsd "Action_Rmsd" (_Action) nogil:
+    cdef cppclass _Action_Rmsd "Action_Rmsd" (_Action):
         _Action_Rmsd()
         _DispatchObject * Alloc()
         void Help()
@@ -763,7 +763,7 @@ cdef class Action_Rmsd(Action):
 
 
 cdef extern from "Action_Rotate.h":
-    cdef cppclass _Action_Rotate "Action_Rotate" (_Action) nogil:
+    cdef cppclass _Action_Rotate "Action_Rotate" (_Action):
         _Action_Rotate()
         _DispatchObject * Alloc()
         void Help()
@@ -774,7 +774,7 @@ cdef class Action_Rotate(Action):
 
 
 cdef extern from "Action_RunningAvg.h":
-    cdef cppclass _Action_RunningAvg "Action_RunningAvg" (_Action) nogil:
+    cdef cppclass _Action_RunningAvg "Action_RunningAvg" (_Action):
         _Action_RunningAvg()
         _DispatchObject * Alloc()
         void Help()
@@ -785,7 +785,7 @@ cdef class Action_RunningAvg(Action):
 
 
 cdef extern from "Action_STFC_Diffusion.h":
-    cdef cppclass _Action_STFC_Diffusion "Action_STFC_Diffusion" (_Action) nogil:
+    cdef cppclass _Action_STFC_Diffusion "Action_STFC_Diffusion" (_Action):
         _Action_STFC_Diffusion()
         _DispatchObject * Alloc()
         void Help()
@@ -796,7 +796,7 @@ cdef class Action_STFC_Diffusion(Action):
 
 
 cdef extern from "Action_Scale.h":
-    cdef cppclass _Action_Scale "Action_Scale" (_Action) nogil:
+    cdef cppclass _Action_Scale "Action_Scale" (_Action):
         _Action_Scale()
         _DispatchObject * Alloc()
         void Help()
@@ -807,7 +807,7 @@ cdef class Action_Scale(Action):
 
 
 cdef extern from "Action_SetVelocity.h":
-    cdef cppclass _Action_SetVelocity "Action_SetVelocity" (_Action) nogil:
+    cdef cppclass _Action_SetVelocity "Action_SetVelocity" (_Action):
         _Action_SetVelocity()
         _DispatchObject * Alloc()
         void Help()
@@ -818,7 +818,7 @@ cdef class Action_SetVelocity(Action):
 
 
 cdef extern from "Action_Spam.h":
-    cdef cppclass _Action_Spam "Action_Spam" (_Action) nogil:
+    cdef cppclass _Action_Spam "Action_Spam" (_Action):
         _Action_Spam()
         _DispatchObject * Alloc()
         void Help()
@@ -829,7 +829,7 @@ cdef class Action_Spam(Action):
 
 
 cdef extern from "Action_Strip.h":
-    cdef cppclass _Action_Strip "Action_Strip" (_Action) nogil:
+    cdef cppclass _Action_Strip "Action_Strip" (_Action):
         _Action_Strip()
         _DispatchObject * Alloc()
         void Help()
@@ -840,7 +840,7 @@ cdef class Action_Strip(Action):
 
 
 cdef extern from "Action_Surf.h":
-    cdef cppclass _Action_Surf "Action_Surf" (_Action) nogil:
+    cdef cppclass _Action_Surf "Action_Surf" (_Action):
         _Action_Surf()
         _DispatchObject * Alloc()
         void Help()
@@ -851,7 +851,7 @@ cdef class Action_Surf(Action):
 
 
 cdef extern from "Action_SymmetricRmsd.h":
-    cdef cppclass _Action_SymmetricRmsd "Action_SymmetricRmsd" (_Action) nogil:
+    cdef cppclass _Action_SymmetricRmsd "Action_SymmetricRmsd" (_Action):
         _Action_SymmetricRmsd()
         _DispatchObject * Alloc()
         void Help()
@@ -862,7 +862,7 @@ cdef class Action_SymmetricRmsd(Action):
 
 
 cdef extern from "Action_Temperature.h":
-    cdef cppclass _Action_Temperature "Action_Temperature" (_Action) nogil:
+    cdef cppclass _Action_Temperature "Action_Temperature" (_Action):
         _Action_Temperature()
         _DispatchObject * Alloc()
         void Help()
@@ -873,7 +873,7 @@ cdef class Action_Temperature(Action):
 
 
 cdef extern from "Action_Translate.h":
-    cdef cppclass _Action_Translate "Action_Translate" (_Action) nogil:
+    cdef cppclass _Action_Translate "Action_Translate" (_Action):
         _Action_Translate()
         _DispatchObject * Alloc()
         void Help()
@@ -884,7 +884,7 @@ cdef class Action_Translate(Action):
 
 
 cdef extern from "Action_Unstrip.h":
-    cdef cppclass _Action_Unstrip "Action_Unstrip" (_Action) nogil:
+    cdef cppclass _Action_Unstrip "Action_Unstrip" (_Action):
         _Action_Unstrip()
         _DispatchObject * Alloc()
         void Help()
@@ -895,7 +895,7 @@ cdef class Action_Unstrip(Action):
 
 
 cdef extern from "Action_Unwrap.h":
-    cdef cppclass _Action_Unwrap "Action_Unwrap" (_Action) nogil:
+    cdef cppclass _Action_Unwrap "Action_Unwrap" (_Action):
         _Action_Unwrap()
         _DispatchObject * Alloc()
         void Help()
@@ -906,7 +906,7 @@ cdef class Action_Unwrap(Action):
 
 
 cdef extern from "Action_Vector.h":
-    cdef cppclass _Action_Vector "Action_Vector" (_Action) nogil:
+    cdef cppclass _Action_Vector "Action_Vector" (_Action):
         _Action_Vector()
         _DispatchObject * Alloc()
         void Help()
@@ -917,7 +917,7 @@ cdef class Action_Vector(Action):
 
 
 cdef extern from "Action_VelocityAutoCorr.h":
-    cdef cppclass _Action_VelocityAutoCorr "Action_VelocityAutoCorr" (_Action) nogil:
+    cdef cppclass _Action_VelocityAutoCorr "Action_VelocityAutoCorr" (_Action):
         _Action_VelocityAutoCorr()
         _DispatchObject * Alloc()
         void Help()
@@ -928,7 +928,7 @@ cdef class Action_VelocityAutoCorr(Action):
 
 
 cdef extern from "Action_Volmap.h":
-    cdef cppclass _Action_Volmap "Action_Volmap" (_Action) nogil:
+    cdef cppclass _Action_Volmap "Action_Volmap" (_Action):
         _Action_Volmap()
         _DispatchObject * Alloc()
         void Help()
@@ -939,7 +939,7 @@ cdef class Action_Volmap(Action):
 
 
 cdef extern from "Action_Volume.h":
-    cdef cppclass _Action_Volume "Action_Volume" (_Action) nogil:
+    cdef cppclass _Action_Volume "Action_Volume" (_Action):
         _Action_Volume()
         _DispatchObject * Alloc()
         void Help()
@@ -950,7 +950,7 @@ cdef class Action_Volume(Action):
 
 
 cdef extern from "Action_Watershell.h":
-    cdef cppclass _Action_Watershell "Action_Watershell" (_Action) nogil:
+    cdef cppclass _Action_Watershell "Action_Watershell" (_Action):
         _Action_Watershell()
         _DispatchObject * Alloc()
         void Help()

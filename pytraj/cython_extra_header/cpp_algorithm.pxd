@@ -1,4 +1,4 @@
-cdef extern from "<algorithm>" namespace "std" nogil:
+cdef extern from "<algorithm>" namespace "std":
     void reverse[Iter](Iter first, Iter last)
     void make_heap[Iter](Iter first, Iter last)
     void make_heap[Iter, Compare](Iter first, Iter last, Compare comp)

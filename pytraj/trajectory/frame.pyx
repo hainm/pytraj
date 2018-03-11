@@ -10,7 +10,6 @@ import math
 cimport cython
 from libc.math cimport sqrt
 from cython cimport view
-from cython.parallel import prange
 from cython.operator cimport dereference as deref
 from libcpp.vector cimport vector
 from libc.string cimport memcpy
@@ -23,11 +22,11 @@ from pytraj.externals.six import string_types
 
 DEF RADDEG = 57.29577951308232
 
-cdef extern from "TorsionRoutines.h" nogil:
+cdef extern from "TorsionRoutines.h":
     double cpptorsion "Torsion" (const double *, const double *, const double *, const double *)
     double cppangle "CalcAngle" (const double*, const double*, const double*)
 
-cdef extern from "DistRoutines.h" nogil:
+cdef extern from "DistRoutines.h":
     double DIST2_NoImage(double*, double*)
 
 __all__ = ['Frame']
@@ -350,7 +349,6 @@ cdef class Frame (object):
                 int_view = indices  # create `view`
             except:
                 int_view = indices.astype('i4')
-            # NOTE: try `prange` with different `schedule` but no gain
             for i in range(int_view.shape[0]):
                 j = int_view[i]
                 ptr_dest = self.thisptr.xAddress() + j * 3
@@ -903,15 +901,15 @@ cdef class Frame (object):
                                              self.thisptr.XYZ(idx1), self.thisptr.XYZ(idx2))
         return np.asarray(arr0_view)
 
-    def _distance(self, arr, parallel=False):
+    def _distance(self, arr):
         # TODO: use `cdef _calc_distance`
         # need to make nested function to use default `parallel` value (=False)
         # if not, will get error: Special method __defaults__
         # has wrong number of arguments
-        return self._calc_distance(arr, parallel)
+        return self._calc_distance(arr)
 
     @cython.boundscheck(False)
-    def _calc_distance(self, cython.integral[:, :] int_arr, bint parallel):
+    def _calc_distance(self, cython.integral[:, :] int_arr):
         """return python array of distance for two atoms with indices idx0, idx1
         Parameters
         ----------
@@ -926,23 +924,14 @@ cdef class Frame (object):
         cdef int i
         cdef double[:] arr0_view = np.empty(n_arr, dtype='f8')
 
-        if parallel:
-            for i in prange(n_arr, nogil=True):
-                idx0 = int_arr[i, 0]
-                idx1 = int_arr[i, 1]
-                arr0_view[i] = sqrt(
-                    DIST2_NoImage(
-                        self.thisptr.XYZ(idx0),
-                        self.thisptr.XYZ(idx1)))
-        else:
-            for i in range(n_arr):
-                # just duplicate code (ugly)
-                idx0 = int_arr[i, 0]
-                idx1 = int_arr[i, 1]
-                arr0_view[i] = sqrt(
-                    DIST2_NoImage(
-                        self.thisptr.XYZ(idx0),
-                        self.thisptr.XYZ(idx1)))
+        for i in range(n_arr):
+            # just duplicate code (ugly)
+            idx0 = int_arr[i, 0]
+            idx1 = int_arr[i, 1]
+            arr0_view[i] = sqrt(
+                DIST2_NoImage(
+                    self.thisptr.XYZ(idx0),
+                    self.thisptr.XYZ(idx1)))
         return np.asarray(arr0_view)
 
     def to_ndarray(self):

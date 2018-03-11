@@ -497,7 +497,7 @@ cdef class Vec3:
             cdef double[:] arr = <double[:3]> self.thisptr.Dptr()
             return arr
 
-cdef extern from "DistRoutines.h" nogil:
+cdef extern from "DistRoutines.h":
     ctypedef enum ImagingType:
         NOIMAGE=0
         ORTHO
@@ -575,7 +575,7 @@ cdef class ImagedAction:
 # distutil: language = c++
 import math
 
-cdef extern from "TorsionRoutines.h" nogil:
+cdef extern from "TorsionRoutines.h":
     # create alias to avoid: ambiguous overloaded method
     double C_Torsion "Torsion" (const double *, const double *, const double *, const double *)
     double Pucker_AS(const double*, const double*, const double*, const double*,
