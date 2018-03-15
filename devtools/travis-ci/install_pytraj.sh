@@ -11,7 +11,7 @@ fi
 
 
 git clone https://github.com/Amber-MD/cpptraj
-(cd cpptraj && git checkout 0fed4368806d217765116a3f5b74e4a447b342f6)
+(cd cpptraj && git checkout d1d762564952d1a7df55126f5550a407b054f118)
 
 if [[ "$TRAVIS_OS_NAME" == "osx" ]]; then
     $python setup.py install --disable-openmp
