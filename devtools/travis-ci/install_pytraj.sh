@@ -10,6 +10,9 @@ else
 fi
 
 
+git clone https://github.com/Amber-MD/cpptraj
+(cd cpptraj && git checkout 0fed4368806d217765116a3f5b74e4a447b342f6)
+
 if [[ "$TRAVIS_OS_NAME" == "osx" ]]; then
     $python setup.py install --disable-openmp
 else
