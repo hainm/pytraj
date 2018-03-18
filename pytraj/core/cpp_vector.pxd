@@ -1,7 +1,7 @@
 # copied from Cython to use const_iterator
 # ./libcpp/vector.pxd
 
-cdef extern from "<vector>" namespace "std" nogil:
+cdef extern from "<vector>" namespace "std":
     cdef cppclass vector[T]:
         cppclass iterator:
             T& operator*()

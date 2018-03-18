@@ -17,7 +17,7 @@ ctypedef cppvector[_Molecule].const_iterator mol_iterator
 ctypedef cppvector[int].const_iterator bond_iterator
 
 cdef extern from "CoordinateInfo.h": 
-    cdef cppclass _CoordinateInfo "CoordinateInfo" nogil:
+    cdef cppclass _CoordinateInfo "CoordinateInfo":
         _CoordinateInfo() 
         _CoordinateInfo(const _Box& b, bint v, bint t, bint m)
         bint HasBox() const 
@@ -33,7 +33,7 @@ cdef extern from "CoordinateInfo.h":
         void SetBox(const _Box& b)
 
 cdef extern from "Topology.h": 
-    cdef cppclass _Topology "Topology" nogil:
+    cdef cppclass _Topology "Topology":
         _Topology() 
         void SetOffset(double oIn)
         void SetDebug(int dIn)
@@ -153,7 +153,7 @@ cdef extern from "ParmFile.h":
     ctypedef enum ParmFormatType "ParmFile::ParmFormatType":
         pass
         UNKNOWN_PARM "ParmFile::UNKNOWN_PARM"
-    cdef cppclass _ParmFile "ParmFile" nogil:
+    cdef cppclass _ParmFile "ParmFile":
         @staticmethod
         void ReadOptions() 
         @staticmethod
